@@ -1,103 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.0.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>transactionservice</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<name>transactionservice</name>
-	<description>transactionservice</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
-	<properties>
-		<java.version>21</java.version>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webmvc</artifactId>
-		</dependency>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.2</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.example</groupId>
+    <artifactId>transactionservice</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>transactionservice</name>
+    <description>Transaction Service SOAP</description>
 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webmvc-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
+    <properties>
+        <java.version>21</java.version>
+        <spring-cloud.version>2025.1.0</spring-cloud.version>
+    </properties>
+    <dependencyManagement>
+      <dependencies>
+        <dependency>
+          <groupId>org.springframework.cloud</groupId>
+          <artifactId>spring-cloud-dependencies</artifactId>
+          <version>2024.0.1</version>
+          <type>pom</type>
+          <scope>import</scope>
+        </dependency>
+        <dependency>
+           <groupId>de.codecentric</groupId>
+           <artifactId>spring-boot-admin-dependencies</artifactId>
+           <version>3.4.2</version>
+           <type>pom</type>
+           <scope>import</scope>
+        </dependency>
+      </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <!-- Dépendance pour SOAP (Web Services) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+        <!-- Pour générer le WSDL -->
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+        </dependency>
+        <!-- Pour appeler les autres services (Card/Fraud en REST) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			 <groupId>org.projectlombok</groupId>
-             <artifactId>lombok</artifactId>
-             <optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.3.0</version>
-		</dependency>
-	</dependencies>
+        </dependency>
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>de.codecentric</groupId>
+          <artifactId>spring-boot-admin-starter-client</artifactId>
+          <version>3.3.4</version>
+        </dependency>
+        <dependency>
+          <groupId>org.springdoc</groupId>
+          <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+          <version>2.5.0</version>
+        </dependency>
+       
+    </dependencies>
+   
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</path>
-					</annotationProcessorPaths>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+  <plugins>
+    <!-- Génère les classes Java depuis le XSD -->
+    <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>jaxb2-maven-plugin</artifactId>
+      <version>3.1.0</version>
+      <executions>
+        <execution>
+          <id>xjc</id>
+          <goals>
+            <goal>xjc</goal>
+          </goals>
+        </execution>
+      </executions>
+      <configuration>
+        <sources>
+          <source>src/main/resources/xsd</source>
+        </sources>
+        <!-- IMPORTANT : forcer le package -->
+        <packageName>com.example.transactionservice.generated</packageName>
+        <!-- IMPORTANT : répertoire de sortie -->
+        <outputDirectory>${project.build.directory}/generated-sources/jaxb</outputDirectory>
+        <clearOutputDir>false</clearOutputDir>
+      </configuration>
+    </plugin>
+
+    <!-- Dit à Maven que target/generated-sources/jaxb contient du code à compiler -->
+    <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>build-helper-maven-plugin</artifactId>
+      <version>3.5.0</version>
+      <executions>
+        <execution>
+          <id>add-generated-sources</id>
+          <phase>generate-sources</phase>
+          <goals>
+            <goal>add-source</goal>
+          </goals>
+          <configuration>
+            <sources>
+              <source>${project.build.directory}/generated-sources/jaxb</source>
+            </sources>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
 
 </project>

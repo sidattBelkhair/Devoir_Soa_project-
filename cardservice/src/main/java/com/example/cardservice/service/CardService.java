@@ -31,13 +31,48 @@ public class CardService {
 
     // Mettre à jour une carte
     public Card updateCard(String cardNumber, Card cardDetails) {
-        return cardRepository.findByCardNumber(cardNumber).map(card -> {
+    return cardRepository.findByCardNumber(cardNumber).map(card -> {
+
+        // Mise à jour PARTIELLE : on modifie seulement si la valeur est fournie
+
+        if (cardDetails.getOwnerName() != null) {
             card.setOwnerName(cardDetails.getOwnerName());
+        }
+
+        if (cardDetails.getCardType() != null) {
+            card.setCardType(cardDetails.getCardType());
+        }
+
+        if (cardDetails.getCvv() != null) {
+            card.setCvv(cardDetails.getCvv());
+        }
+
+        if (cardDetails.getExpirationDate() != null) {
+            card.setExpirationDate(cardDetails.getExpirationDate());
+        }
+
+        // Boolean: comme c'est toujours true/false, on accepte la valeur telle quelle
+        // (donc le client doit envoyer active/blocked s'il veut changer)
+        card.setActive(cardDetails.isActive());
+        card.setBlocked(cardDetails.isBlocked());
+
+        if (cardDetails.getBalance() != null) {
             card.setBalance(cardDetails.getBalance());
-            card.setActive(cardDetails.isActive());
-            return cardRepository.save(card);
-        }).orElse(null);
-    }
+        }
+
+        if (cardDetails.getCurrency() != null) {
+            card.setCurrency(cardDetails.getCurrency());
+        }
+
+        if (cardDetails.getStatus() != null) {
+            card.setStatus(cardDetails.getStatus());
+        }
+
+        return cardRepository.save(card);
+
+    }).orElse(null);
+}
+
 
     // Supprimer une carte
     public boolean deleteCard(String cardNumber) {

@@ -1,21 +1,36 @@
 package com.example.fraudservice.model;
 
-// J'ai enlevé Lombok Data pour éviter le bug du JSON vide
-public class FraudCheckResponse {
-    private boolean isFraudulent;
-    private String reason;
+import java.util.List;
 
-    // Constructeur manuel (OBLIGATOIRE)
-    public FraudCheckResponse(boolean isFraudulent, String reason) {
-        this.isFraudulent = isFraudulent;
+public class FraudCheckResponse {
+    private boolean fraudulent;
+    private int riskScore;              // 0..100
+    private String decision;            // APPROVE / REVIEW / DECLINE
+    private String reason;              // message simple
+    private List<String> triggeredRules; // règles déclenchées
+
+    public FraudCheckResponse() {}
+
+    public FraudCheckResponse(boolean fraudulent, int riskScore, String decision, String reason, List<String> triggeredRules) {
+        this.fraudulent = fraudulent;
+        this.riskScore = riskScore;
+        this.decision = decision;
         this.reason = reason;
+        this.triggeredRules = triggeredRules;
     }
 
-    // Getters manuels (OBLIGATOIRES pour le JSON)
-    public boolean isFraudulent() { return isFraudulent; }
+    public boolean isFraudulent() { return fraudulent; }
+    public void setFraudulent(boolean fraudulent) { this.fraudulent = fraudulent; }
+
+    public int getRiskScore() { return riskScore; }
+    public void setRiskScore(int riskScore) { this.riskScore = riskScore; }
+
+    public String getDecision() { return decision; }
+    public void setDecision(String decision) { this.decision = decision; }
+
     public String getReason() { return reason; }
-    
-    // Setters
-    public void setFraudulent(boolean fraudulent) { this.isFraudulent = fraudulent; }
     public void setReason(String reason) { this.reason = reason; }
+
+    public List<String> getTriggeredRules() { return triggeredRules; }
+    public void setTriggeredRules(List<String> triggeredRules) { this.triggeredRules = triggeredRules; }
 }

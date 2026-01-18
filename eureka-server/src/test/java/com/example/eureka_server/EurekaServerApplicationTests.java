@@ -1,10 +1,10 @@
-package com.example.transactionservice;
+package com.example.eureka_server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TransactionserviceApplicationTests {
+class EurekaServerApplicationTests {
 
 	@Test
 	void contextLoads() {
