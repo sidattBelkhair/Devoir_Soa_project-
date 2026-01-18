@@ -250,12 +250,5 @@ curl http://localhost:8083/api/transactions/blocked
 
 ---
 
-## 5) Auteur
-
-Projet réalisé dans le cadre du **Devoir SOA**
-Architecture **SOAP / REST / Microservices / Spring Boot**
-
-```
-
 
 ```
